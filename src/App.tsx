@@ -1,6 +1,19 @@
 import { useEffect, useState } from "react";
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/home";
+import Analyse from "./pages/analyse";
+import Header from "./components/Header"; // si tu crées un header
 
 function App() {
-  return <h1>Dataviz</h1>;
+  return (
+    <>
+      <Header /> {/* s’affiche sur toutes les pages */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/analyse" element={<Analyse />} />
+      </Routes>
+    </>
+  );
 }
+
 export default App;
