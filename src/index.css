@@ -1,2 +1,7 @@
 @import "tailwindcss";
-@plugin "daisyui";
+
+@layer base {
+  body {
+    @apply bg-neutral-900 text-white;
+  }
+}
