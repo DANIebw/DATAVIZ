@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useEffect, useState } from "react";
 
 function Home() {
@@ -23,5 +24,10 @@ function Home() {
       <p>Nombre de tournages chargés : {tournages.length}</p>
     </div>
   );
+=======
+// src/pages/Home.tsx
+function Home() {
+  return <h1>Page d'accueil</h1>;
+>>>>>>> page-analyse
 }
 export default Home;
