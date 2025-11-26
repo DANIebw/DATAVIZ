@@ -35,6 +35,21 @@ function Analyse() {
 
   console.log("tournages state :", tournages);
 
+  // 🔵 Regrouper les tournages par année
+  const dataParAnnee = tournages.reduce((acc: any[], t) => {
+    const annee = t.annee_tournage || "Inconnue";
+
+    const exist = acc.find((item) => item.annee === annee);
+
+    if (exist) {
+      exist.count += 1;
+    } else {
+      acc.push({ annee, count: 1 });
+    }
+
+    return acc;
+  }, []);
+
   return (
     <main className="max-w-6xl mx-auto px-6 py-10">
       <div className="mb-6">
