@@ -1,5 +1,6 @@
 // src/pages/Analyse.tsx
 import { useEffect, useState } from "react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
 
 type Tournage = {
   titre?: string;
@@ -70,8 +71,17 @@ function Analyse() {
       {!loading && !error && (
         <>
           <h2 className="text-2xl font-semibold mb-4">
-            Aperçu des premiers tournages
+            Graphique — Tournages par année
           </h2>
+          <div className="w-full flex justify-center my-8">
+            <BarChart data={dataParAnnee} width={500} height={300}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="annee" />
+              <YAxis />
+              <Bar dataKey="count" fill="#8884d8" />
+            </BarChart>
+          </div>
+
           <div className="grid gap-4 md:grid-cols-2">
             {tournages.slice(0, 10).map((t, index) => (
               <div
