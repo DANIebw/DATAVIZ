@@ -1,6 +1,7 @@
 // src/pages/Analyse.tsx
 import { useEffect, useState } from "react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
+import sallecinema from "./sallecinema.jpg";
 
 type Tournage = {
   titre?: string;
@@ -52,65 +53,153 @@ function Analyse() {
   }, []);
 
   return (
-    <main className="max-w-6xl mx-auto px-6 py-10 bg-sky-200">
-      <div className="mb-6">
-        {loading && <p className="opacity-70">Chargement des données… ⏳</p>}
+    <main
+      className="min-h-screen bg-fixed px-4 py-10 bg-slate-900 bg-cover bg-center bg-fixed"
+      style={{
+        backgroundImage: `linear-gradient(rgba(15,23,42,0.85), rgba(15,23,42,0.85)), url(${sallecinema})`,
+      }}
+    >
+      <div className="max-w-6xl mx-auto px-6 py-10 bg-sky-200">
+        <div className="mb-6">
+          {loading && <p className="opacity-70">Chargement des données… ⏳</p>}
 
-        {error && <p className="text-red-400">{error}</p>}
+          {error && <p className="text-red-400">{error}</p>}
 
+          {!loading && !error && (
+            <p className="opacity-80 text-xs text-sky-950">
+              On a récupéré{" "}
+              <span className="font-semibold  opacity-80 text-sky-950">
+                {tournages.length}
+              </span>{" "}
+              tournages pour les futurs graphiques... 🎬
+            </p>
+          )}
+        </div>
+
+        {/* Affichage d’un aperçu des tournages */}
         {!loading && !error && (
-          <p className="opacity-80 text-xs text-sky-950">
-            On a récupéré{" "}
-            <span className="font-semibold  opacity-80 text-sky-950">
-              {tournages.length}
-            </span>{" "}
-            tournages pour les futurs graphiques... 🎬
-          </p>
+          <>
+            {/* Affichage d’un aperçu des tournages */}
+            {!loading && !error && (
+              <>
+                {/* 🔹 Grille 2 x 2 de boîtes pour les graphiques */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10 text-with ">
+                  {/* Box 1 */}
+                  <div className="bg-sky-950/60 rounded-xl p-6 shadow-lg flex flex-col gap-4">
+                    <h2 className="text-lg font-semibold">
+                      Tournages par année
+                    </h2>
+                    <p className="text-xs opacity-80">
+                      Nombre de tournages recensés à Paris chaque année.
+                    </p>
+                    <div className="w-full flex justify-center">
+                      <BarChart data={dataParAnnee} width={400} height={260}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="annee" stroke="white" />
+                        <YAxis stroke="white" />
+                        <Tooltip />
+                        <Bar dataKey="count" fill="#6f1d1b" />
+                      </BarChart>
+                    </div>
+                  </div>
+
+                  {/* Box 2 */}
+                  <div className="bg-sky-950/60 rounded-xl p-6 shadow-lg flex flex-col gap-4">
+                    <h2 className="text-lg font-semibold">
+                      {" "}
+                      Long métrage, Série TV, Téléfilm…
+                    </h2>
+                    <p className="text-xs opacity-80">...</p>
+                    <div className="w-full flex justify-center border border-dashed border-white/30 rounded-lg py-10 text-xs opacity-70">
+                      {/* Tu mettras ton 2e graphique ici */}
+                      Graphique à venir
+                    </div>
+                  </div>
+
+                  {/* Box 3 */}
+                  <div className="bg-sky-950/60 rounded-xl p-6 shadow-lg flex flex-col gap-4">
+                    <h2 className="text-lg font-semibold">
+                      Répartition des tournages par arrondissement parisien.
+                    </h2>
+                    <p className="text-xs opacity-80">...</p>
+                    <div className="w-full flex justify-center border border-dashed border-white/30 rounded-lg py-10 text-xs opacity-70">
+                      {/* Tu mettras ton 3e graphique ici */}
+                      Graphique à venir
+                    </div>
+                  </div>
+
+                  {/* Box 4 */}
+                  <div className="bg-sky-950/60 rounded-xl p-6 shadow-lg flex flex-col gap-4">
+                    <h2 className="text-lg font-semibold">
+                      Classement des réalisateurs les plus présents à Paris.
+                    </h2>
+                    <p className="text-xs opacity-80">...</p>
+                    <div className="w-full flex justify-center border border-dashed border-white/30 rounded-lg py-10 text-xs opacity-70">
+                      {/* Tu mettras ton 4e graphique ici */}
+                      Graphique à venir
+                    </div>
+                  </div>
+                </div>
+
+                {/* 🔹 Tes cartes de tournages en dessous */}
+                <div className="grid gap-5 text-with ">
+                  {tournages.slice(0, 50).map((t, index) => (
+                    <div
+                      key={index}
+                      className="border border-white/10 rounded-xl p-4 bg-sky-950/60"
+                    >
+                      <p className="font-semibold">
+                        {t.titre || "Titre inconnu"}
+                      </p>
+                      <p className="text-sm opacity-80">
+                        {t.annee_tournage
+                          ? `Année : ${t.annee_tournage}`
+                          : "Année inconnue"}
+                      </p>
+                      {t.nom_realisateur && (
+                        <p className="text-sm opacity-80">
+                          Réalisateur : {t.nom_realisateur}
+                        </p>
+                      )}
+                      {t.adresse_lieu && (
+                        <p className="text-xs opacity-60 mt-1">
+                          Lieu : {t.adresse_lieu}
+                        </p>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+
+            <div className="grid gap-5 text-with ">
+              {tournages.slice(0, 50).map((t, index) => (
+                <div
+                  key={index}
+                  className="border border-white/10 rounded-xl p-4 bg-sky-950/60"
+                >
+                  <p className="font-semibold">{t.titre || "Titre inconnu"}</p>
+                  <p className="text-sm opacity-80">
+                    {t.annee_tournage
+                      ? `Année : ${t.annee_tournage}`
+                      : "Année inconnue"}
+                  </p>
+                  {t.nom_realisateur && (
+                    <p className="text-sm opacity-80">
+                      Réalisateur : {t.nom_realisateur}
+                    </p>
+                  )}
+                  {t.adresse_lieu && (
+                    <p className="text-xs opacity-60 mt-1">
+                      Lieu : {t.adresse_lieu}
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </>
         )}
       </div>
-
-      {/* Affichage d’un aperçu des tournages */}
-      {!loading && !error && (
-        <>
-          <h2 className="text-2xl font-semibold text-sky-950 mb-4">
-            Graphique — Tournages par année
-          </h2>
-          <div className="w-full flex justify-center my-8">
-            <BarChart data={dataParAnnee} width={500} height={300}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="annee" />
-              <YAxis />
-              <Bar dataKey="count" fill="#8884d8" />
-            </BarChart>
-          </div>
-
-          <div className="grid gap-5 text-with ">
-            {tournages.slice(0, 50).map((t, index) => (
-              <div
-                key={index}
-                className="border border-white/10 rounded-xl p-4 bg-sky-950/60"
-              >
-                <p className="font-semibold">{t.titre || "Titre inconnu"}</p>
-                <p className="text-sm opacity-80">
-                  {t.annee_tournage
-                    ? `Année : ${t.annee_tournage}`
-                    : "Année inconnue"}
-                </p>
-                {t.nom_realisateur && (
-                  <p className="text-sm opacity-80">
-                    Réalisateur : {t.nom_realisateur}
-                  </p>
-                )}
-                {t.adresse_lieu && (
-                  <p className="text-xs opacity-60 mt-1">
-                    Lieu : {t.adresse_lieu}
-                  </p>
-                )}
-              </div>
-            ))}
-          </div>
-        </>
-      )}
     </main>
   );
 }

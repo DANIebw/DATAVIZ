@@ -76,17 +76,36 @@ function Home() {
 
           {/* Card 2 */}
           <div className="group bg-sky-950/50 text-white p-6 rounded-xl shadow hover:bg-red-900/50  hover:scale-105 transition">
-            Long métrage, Série TV, Téléfilm… suivez l’évolution par type.
+            <p className="">Long métrage, Série TV, Téléfilm…</p>
+            {!loading && (
+              <p className="text-3xl font-bold mt-4 text-center group-hover:text-with">
+                {tournages.length}
+              </p>
+            )}
           </div>
 
           {/* Card 3 */}
           <div className="group bg-sky-950/50 text-white p-6 rounded-xl shadow hover:bg-red-900/50  hover:scale-105 transition">
-            Répartition des tournages par arrondissement parisien.
+            <p className="">
+              Répartition des tournages par arrondissement parisien.
+            </p>
+            {!loading && (
+              <p className="text-3xl font-bold mt-4 text-center group-hover:text-with">
+                {tournages.length}
+              </p>
+            )}
           </div>
 
           {/* Card 4 */}
           <div className="group bg-sky-950/50 text-white p-6 rounded-xl shadow hover:bg-red-900/50  hover:scale-105 transition">
-            Classement des réalisateurs les plus présents à Paris.
+            <p className="">
+              Classement des réalisateurs les plus présents à Paris."
+            </p>
+            {!loading && (
+              <p className="text-3xl font-bold mt-4 text-center group-hover:text-with">
+                {tournages.length}
+              </p>
+            )}
           </div>
         </div>
       </section>
