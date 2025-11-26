@@ -1,26 +1,90 @@
-// src/pages/analyse.tsx
+// src/pages/Analyse.tsx
 import { useEffect, useState } from "react";
 
+type Tournage = {
+  titre?: string;
+  annee_tournage?: string;
+  nom_realisateur?: string;
+  adresse_lieu?: string;
+};
+
 function Analyse() {
-  const [tournages, setTournages] = useState([]);
+  const [tournages, setTournages] = useState<Tournage[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function load() {
-      const response = await fetch(
-        "https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/lieux-de-tournage-a-paris/records?limit=20"
-      );
-      const data = await response.json();
-      setTournages(data.results);
+      try {
+        const response = await fetch(
+          "https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/lieux-de-tournage-a-paris/records?limit=50"
+        );
+        const data = await response.json();
+        console.log("API data :", data);
+        setTournages(data.results);
+      } catch (err) {
+        console.error(err);
+        setError("Erreur lors du chargement des données 😢");
+      } finally {
+        setLoading(false);
+      }
     }
 
     load();
   }, []);
 
+  console.log("tournages state :", tournages);
+
   return (
-    <div>
-      <h1>Page Analyse</h1>
-      <p>Tournages récupérés : {tournages.length}</p>
-    </div>
+    <main className="max-w-6xl mx-auto px-6 py-10">
+      <div className="mb-6">
+        {loading && <p className="opacity-70">Chargement des données… ⏳</p>}
+
+        {error && <p className="text-red-400">{error}</p>}
+
+        {!loading && !error && (
+          <p className="opacity-80">
+            On a récupéré{" "}
+            <span className="font-semibold">{tournages.length}</span> tournages
+            pour les futurs graphiques. 🎬
+          </p>
+        )}
+      </div>
+
+      {/* Affichage d’un aperçu des tournages */}
+      {!loading && !error && (
+        <>
+          <h2 className="text-2xl font-semibold mb-4">
+            Aperçu des premiers tournages
+          </h2>
+          <div className="grid gap-4 md:grid-cols-2">
+            {tournages.slice(0, 10).map((t, index) => (
+              <div
+                key={index}
+                className="border border-white/10 rounded-xl p-4 bg-white/5"
+              >
+                <p className="font-semibold">{t.titre || "Titre inconnu"}</p>
+                <p className="text-sm opacity-80">
+                  {t.annee_tournage
+                    ? `Année : ${t.annee_tournage}`
+                    : "Année inconnue"}
+                </p>
+                {t.nom_realisateur && (
+                  <p className="text-sm opacity-80">
+                    Réalisateur : {t.nom_realisateur}
+                  </p>
+                )}
+                {t.adresse_lieu && (
+                  <p className="text-xs opacity-60 mt-1">
+                    Lieu : {t.adresse_lieu}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+    </main>
   );
 }
 
