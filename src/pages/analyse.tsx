@@ -7,6 +7,7 @@ type Tournage = {
   annee_tournage?: string;
   nom_realisateur?: string;
   adresse_lieu?: string;
+  type_tournage?: string;
 };
 
 function Analyse() {
@@ -36,7 +37,7 @@ function Analyse() {
 
   console.log("tournages state :", tournages);
 
-  // 🔵 Regrouper les tournages par année
+  // 🔵 Regroupement des tournages par année
   const dataParAnnee = tournages.reduce((acc: any[], t) => {
     const annee = t.annee_tournage || "Inconnue";
 
@@ -51,8 +52,51 @@ function Analyse() {
     return acc;
   }, []);
 
+  // regroupement par types
+  const dataTypes = tournages.reduce((acc: any[], t) => {
+    const type = t.type_tournage || "Inconnu";
+
+    const exist = acc.find((item) => item.type === type);
+
+    if (exist) {
+      exist.count += 1;
+    } else {
+      acc.push({ type, count: 1 });
+    }
+
+    return acc;
+  }, []);
+
+  // les graphiques
   return (
     <main className="max-w-6xl mx-auto px-6 py-10">
+      {/* graphique 1 */}
+      <h2 className="text-2xl font-semibold mb-4">
+        Graphique — Tournages par année
+      </h2>
+      <div className="w-full flex justify-center my-8">
+        <BarChart data={dataParAnnee} width={500} height={300}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="annee" />
+          <YAxis />
+          <Bar dataKey="count" fill="#8884d8" />
+        </BarChart>
+      </div>
+
+      {/* graphique 2 */}
+      <h2 className="text-2xl font-semibold mb-4 mt-10">
+        Graphique — Répartition par type de tournage
+      </h2>
+
+      <div className="w-full flex justify-center my-8">
+        <BarChart width={500} height={300} data={dataTypes}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="type" />
+          <YAxis />
+          <Bar dataKey="count" fill="#82ca9d" />
+        </BarChart>
+      </div>
+
       <div className="mb-6">
         {loading && <p className="opacity-70">Chargement des données… ⏳</p>}
 
@@ -70,18 +114,6 @@ function Analyse() {
       {/* Affichage d’un aperçu des tournages */}
       {!loading && !error && (
         <>
-          <h2 className="text-2xl font-semibold mb-4">
-            Graphique — Tournages par année
-          </h2>
-          <div className="w-full flex justify-center my-8">
-            <BarChart data={dataParAnnee} width={500} height={300}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="annee" />
-              <YAxis />
-              <Bar dataKey="count" fill="#8884d8" />
-            </BarChart>
-          </div>
-
           <div className="grid gap-4 md:grid-cols-2">
             {tournages.slice(0, 10).map((t, index) => (
               <div
