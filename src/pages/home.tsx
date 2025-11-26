@@ -1,5 +1,6 @@
 // src/pages/Home.tsx
 import { useEffect, useState } from "react";
+import cinemaHero from "../assets/cinema.png";
 
 type Tournage = {
   titre?: string;
@@ -33,55 +34,65 @@ function Home() {
   return (
     <>
       {/* HERO */}
-      <section className="min-h-[360px] bg-gradient-to-r from-slate-900 via-slate-800 to-emerald-900 flex items-center justify-center text-center px-6">
-        <div className="max-w-3xl">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+
+      <section
+        className="relative h-[450px] bg-cover bg-center bg-no-repeat flex items-center justify-center text-center px-10"
+        style={{ backgroundImage: `url(${cinemaHero})` }}
+      >
+        {/* Overlay sombre sur toute l'image */}
+        <div className="absolute inset-0 bg-black/60"></div>
+
+        {/* Contenu */}
+        <div className="relative z-10 max-w-3xl text-white">
+          <h1 className="text-5xl md:text-5xl font-bold mb-9">
             Dataviz Cinéma – France
           </h1>
+
           <p className="opacity-90 mb-6 text-sm md:text-base leading-relaxed">
             Visualisez l’activité cinématographique à travers les lieux de
             tournage à Paris : tendances par année, types de tournage,
             arrondissements, réalisateurs et plus encore.
           </p>
 
-          <button className="bg-white text-black px-6 py-3 rounded-xl font-semibold hover:bg-gray-200 transition">
+          <button className="bg-sky-200 text-sky-950 px-6 py-3 rounded-xl font-semibold hover:bg-sky-200/50 transition">
             Explorer les analyses
           </button>
         </div>
       </section>
 
       {/* CARTES */}
-      <section className="py-12">
+      <section className="py-12 bg-sky-200">
         <div className="max-w-6xl mx-auto px-6 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {/* 1ère carte avec le nombre */}
-          <div className="bg-white text-black p-6 rounded-xl shadow">
-            <p>
-              Nombre de tournages par année pour repérer les pics d’activité.
-            </p>
+          {/* Card 1 */}
+          <div className="group bg-sky-950/50 text-white p-6 rounded-xl shadow hover:bg-red-900/50  hover:scale-105 transition ">
+            <p className="">Nombre de tournages par année.</p>
 
             {!loading && (
-              <p className="text-3xl font-bold mt-4 text-center">
+              <p className="text-3xl font-bold mt-4 text-center group-hover:text-with">
                 {tournages.length}
               </p>
             )}
           </div>
 
-          <div className="bg-white text-black p-6 rounded-xl shadow">
+          {/* Card 2 */}
+          <div className="group bg-sky-950/50 text-white p-6 rounded-xl shadow hover:bg-red-900/50  hover:scale-105 transition">
             Long métrage, Série TV, Téléfilm… suivez l’évolution par type.
           </div>
 
-          <div className="bg-white text-black p-6 rounded-xl shadow">
+          {/* Card 3 */}
+          <div className="group bg-sky-950/50 text-white p-6 rounded-xl shadow hover:bg-red-900/50  hover:scale-105 transition">
             Répartition des tournages par arrondissement parisien.
           </div>
 
-          <div className="bg-white text-black p-6 rounded-xl shadow">
+          {/* Card 4 */}
+          <div className="group bg-sky-950/50 text-white p-6 rounded-xl shadow hover:bg-red-900/50  hover:scale-105 transition">
             Classement des réalisateurs les plus présents à Paris.
           </div>
         </div>
       </section>
 
       {/* FOOTER */}
-      <footer className="bg-[#f5f5f5] text-black py-12 border-t border-black/10">
+      <footer className="bg-sky-950 text-with py-12 ">
         <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-8 text-sm">
           <div>
             <h3 className="font-semibold mb-2">À propos du projet</h3>

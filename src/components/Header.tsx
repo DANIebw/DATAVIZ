@@ -2,9 +2,9 @@ import { NavLink } from "react-router-dom";
 
 function Header() {
   return (
-    <header className="border-b border-white/10 bg-black/30 backdrop-blur">
+    <header className="border-b border-white/10 bg-sky-950 backdrop-blur">
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-        <div className="text-sm font-semibold tracking-wide">
+        <div className="text-sm text-with font-semibold tracking-wide">
           Dataviz Cinéma – France
         </div>
 
@@ -14,8 +14,8 @@ function Header() {
             className={({ isActive }) =>
               "px-4 py-2 rounded-xl transition " +
               (isActive
-                ? "bg-white text-black font-semibold"
-                : "text-white hover:bg-white/10")
+                ? "bg-sky-200 text-sky-950 font-semibold"
+                : "text-black hover:bg-white/10")
             }
           >
             Accueil
@@ -27,7 +27,7 @@ function Header() {
               "px-4 py-2 rounded-xl transition " +
               (isActive
                 ? "bg-white text-black font-semibold"
-                : "text-white hover:bg-white/10")
+                : "text-white hover:bg-red-900/50")
             }
           >
             Analyse
