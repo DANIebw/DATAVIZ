@@ -52,17 +52,19 @@ function Analyse() {
   }, []);
 
   return (
-    <main className="max-w-6xl mx-auto px-6 py-10">
+    <main className="max-w-6xl mx-auto px-6 py-10 bg-sky-200">
       <div className="mb-6">
         {loading && <p className="opacity-70">Chargement des données… ⏳</p>}
 
         {error && <p className="text-red-400">{error}</p>}
 
         {!loading && !error && (
-          <p className="opacity-80">
+          <p className="opacity-80 text-xs text-sky-950">
             On a récupéré{" "}
-            <span className="font-semibold">{tournages.length}</span> tournages
-            pour les futurs graphiques. 🎬
+            <span className="font-semibold  opacity-80 text-sky-950">
+              {tournages.length}
+            </span>{" "}
+            tournages pour les futurs graphiques... 🎬
           </p>
         )}
       </div>
@@ -70,7 +72,7 @@ function Analyse() {
       {/* Affichage d’un aperçu des tournages */}
       {!loading && !error && (
         <>
-          <h2 className="text-2xl font-semibold mb-4">
+          <h2 className="text-2xl font-semibold text-sky-950 mb-4">
             Graphique — Tournages par année
           </h2>
           <div className="w-full flex justify-center my-8">
@@ -82,11 +84,11 @@ function Analyse() {
             </BarChart>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-2">
-            {tournages.slice(0, 10).map((t, index) => (
+          <div className="grid gap-5 text-with ">
+            {tournages.slice(0, 50).map((t, index) => (
               <div
                 key={index}
-                className="border border-white/10 rounded-xl p-4 bg-white/5"
+                className="border border-white/10 rounded-xl p-4 bg-sky-950/60"
               >
                 <p className="font-semibold">{t.titre || "Titre inconnu"}</p>
                 <p className="text-sm opacity-80">
