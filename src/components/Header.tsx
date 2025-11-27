@@ -15,7 +15,7 @@ function Header() {
               "px-4 py-2 rounded-xl transition " +
               (isActive
                 ? "bg-sky-200 text-sky-950 font-semibold"
-                : "text-black hover:bg-white/10")
+                : "text-sky-200 hover:bg-red-900/50")
             }
           >
             Accueil
@@ -26,8 +26,8 @@ function Header() {
             className={({ isActive }) =>
               "px-4 py-2 rounded-xl transition " +
               (isActive
-                ? "bg-white text-black font-semibold"
-                : "text-white hover:bg-red-900/50")
+                ? "bg-sky-200 text-sky-900 font-semibold"
+                : "text-sky-200 hover:bg-red-900/50")
             }
           >
             Analyse
