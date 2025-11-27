@@ -1,6 +1,6 @@
 // src/pages/Analyse.tsx
 import { useEffect, useState } from "react";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
+import { Bar, XAxis, YAxis, Tooltip, CartesianGrid, BarChart } from "recharts";
 import sallecinema from "./sallecinema.jpg";
 
 type Tournage = {
