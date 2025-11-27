@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 
 import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
-import sallecinema from "../images/sallecinema.jpg";
+import sallecinema from "/src/images/sallecinema.jpg";
 
 type Tournage = {
   titre?: string;
