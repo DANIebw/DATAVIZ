@@ -1,12 +1,16 @@
 // src/pages/Home.tsx
 import { useEffect, useState } from "react";
-import cinemaHero from "../assets/cinema.png";
+import cinemaHero from "../images/cinema.png";
+import Footer from "../components/footer";
 
 type Tournage = {
-  titre?: string;
+  nom_tournage?: string;
   annee_tournage?: string;
   nom_realisateur?: string;
   adresse_lieu?: string;
+  type_tournage?: string;
+  ardt_lieu?: string;
+  geo_point_2d?: string;
 };
 
 function Home() {
@@ -17,7 +21,7 @@ function Home() {
     async function load() {
       try {
         const response = await fetch(
-          "https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/lieux-de-tournage-a-paris/records?limit=50"
+          "https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/lieux-de-tournage-a-paris/records?limit=100"
         );
         const data = await response.json();
         setTournages(data.results);
@@ -30,6 +34,17 @@ function Home() {
 
     load();
   }, []);
+
+  const tournagesParAnnee = tournages.reduce((acc, t) => {
+    const annee = t.annee_tournage;
+
+    if (!annee) return acc; // on ignore si pas d'année
+
+    if (!acc[annee]) acc[annee] = 0;
+    acc[annee]++;
+
+    return acc;
+  }, {} as Record<string, number>);
 
   return (
     <>
@@ -69,7 +84,10 @@ function Home() {
 
             {!loading && (
               <p className="text-3xl font-bold mt-4 text-center group-hover:text-with">
-                {tournages.length}
+                {Object.values(tournagesParAnnee).reduce(
+                  (sum, x) => sum + x,
+                  0
+                )}
               </p>
             )}
           </div>
@@ -79,7 +97,10 @@ function Home() {
             <p className="">Long métrage, Série TV, Téléfilm…</p>
             {!loading && (
               <p className="text-3xl font-bold mt-4 text-center group-hover:text-with">
-                {tournages.length}
+                {Object.values(tournagesParAnnee).reduce(
+                  (sum, x) => sum + x,
+                  0
+                )}
               </p>
             )}
           </div>
@@ -111,33 +132,7 @@ function Home() {
       </section>
 
       {/* FOOTER */}
-      <footer className="bg-sky-950 text-with py-12 ">
-        <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-8 text-sm">
-          <div>
-            <h3 className="font-semibold mb-2">À propos du projet</h3>
-            <p className="opacity-80">
-              Projet construit avec React + TypeScript, Vite, React Router,
-              TailwindCSS <br />
-              Consomme l’API Open Data Paris pour visualiser des données de
-              tournage : années, types de production, arrondissements et
-              réalisateurs.
-            </p>
-          </div>
-
-          <div>
-            <h3 className="font-semibold mb-2">Ressources utiles</h3>
-            <ul className="space-y-1">
-              <li className="underline cursor-pointer">a spécifié</li>
-              <li className="underline cursor-pointer">a spécifié</li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="font-semibold mb-2">Crédits</h3>
-            <p className="opacity-80">Créé par Danielle, Mathis et Marine</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </>
   );
 }

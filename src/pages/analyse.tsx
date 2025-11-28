@@ -1,6 +1,6 @@
 // src/pages/Analyse.tsx
 import { useEffect, useState } from "react";
-import BarChartByYear from "../components/BarChartByYear";
+import BarChartByYear from "../components/chart/BarChartByYear";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
 import sallecinema from "/src/images/sallecinema.jpg";
 

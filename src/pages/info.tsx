@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import sallecinema from "../images/sallecinema.jpg";
 
 type Tournage = {
-  titre?: string;
+  nom_tournage?: string;
   annee_tournage?: string;
   nom_realisateur?: string;
   adresse_lieu?: string;
@@ -75,7 +75,7 @@ function Analyse() {
               key={index}
               className="border border-white/10 rounded-xl p-4 bg-sky-950/60 text-white"
             >
-              <p className="font-semibold">{t.titre || "Titre inconnu"}</p>
+              <p className="font-semibold">{t.nom_tournage}</p>
               <p className="text-sm opacity-80">
                 {t.annee_tournage
                   ? `Année : ${t.annee_tournage}`
