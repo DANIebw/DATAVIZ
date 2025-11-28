@@ -1,6 +1,6 @@
 // src/pages/Analyse.tsx
 import { useEffect, useState } from "react";
-
+import BarChartByYear from "../components/BarChartByYear";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
 import sallecinema from "/src/images/sallecinema.jpg";
 
@@ -21,7 +21,7 @@ function Analyse() {
     async function load() {
       try {
         const response = await fetch(
-          "https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/lieux-de-tournage-a-paris/records?limit=50"
+          "https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/lieux-de-tournage-a-paris/records?limit=100"
         );
         const data = await response.json();
         console.log("API data :", data);
@@ -35,19 +35,6 @@ function Analyse() {
     }
 
     load();
-  }, []);
-
-  // 🔵 Regroupement des tournages par année
-  const dataParAnnee = tournages.reduce((acc: any[], t) => {
-    const annee = t.annee_tournage || "Inconnue";
-    const exist = acc.find((item) => item.annee === annee);
-
-    if (exist) {
-      exist.count += 1;
-    } else {
-      acc.push({ annee, count: 1 });
-    }
-    return acc;
   }, []);
 
   // 🟣 Regroupement par type
@@ -100,13 +87,7 @@ function Analyse() {
                   Nombre de tournages recensés à Paris chaque année.
                 </p>
                 <div className="w-full flex justify-center">
-                  <BarChart data={dataParAnnee} width={400} height={260}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="annee" stroke="#ffffff" />
-                    <YAxis stroke="#ffffff" />
-                    <Tooltip />
-                    <Bar dataKey="count" fill="#6f1d1b" />
-                  </BarChart>
+                  <BarChartByYear tournages={tournages} />
                 </div>
               </div>
 
