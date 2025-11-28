@@ -32,6 +32,18 @@ function Header() {
           >
             Analyse
           </NavLink>
+
+          <NavLink
+            to="/info"
+            className={({ isActive }) =>
+              "px-4 py-2 rounded-xl transition " +
+              (isActive
+                ? "bg-sky-200 text-sky-900 font-semibold"
+                : "text-sky-200 hover:bg-red-900/50")
+            }
+          >
+            Information
+          </NavLink>
         </nav>
       </div>
     </header>

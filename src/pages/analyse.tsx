@@ -151,33 +151,6 @@ function Analyse() {
                 </div>
               </div>
             </div>
-
-            {/* 🧾 Cartes de tournages */}
-            <div className="grid gap-5 text-with">
-              {tournages.slice(0, 50).map((t, index) => (
-                <div
-                  key={index}
-                  className="border border-white/10 rounded-xl p-4 bg-sky-950/60 text-white"
-                >
-                  <p className="font-semibold">{t.titre || "Titre inconnu"}</p>
-                  <p className="text-sm opacity-80">
-                    {t.annee_tournage
-                      ? `Année : ${t.annee_tournage}`
-                      : "Année inconnue"}
-                  </p>
-                  {t.nom_realisateur && (
-                    <p className="text-sm opacity-80">
-                      Réalisateur : {t.nom_realisateur}
-                    </p>
-                  )}
-                  {t.adresse_lieu && (
-                    <p className="text-xs opacity-60 mt-1">
-                      Lieu : {t.adresse_lieu}
-                    </p>
-                  )}
-                </div>
-              ))}
-            </div>
           </>
         )}
       </div>
