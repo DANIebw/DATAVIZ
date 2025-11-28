@@ -44,3 +44,5 @@ function TournagesParType({ tournages }: { tournages: Tournage[] }) {
 }
 
 export default TournagesParType;
+
+// import TournagesParType from "@/components/TournagesParType";
