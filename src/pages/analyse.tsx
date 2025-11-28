@@ -1,7 +1,9 @@
 // src/pages/Analyse.tsx
 import { useEffect, useState } from "react";
+import BarChartByYear from "../components/BarChartByYear";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
-import sallecinema from "./sallecinema.jpg";
+import sallecinema from "/src/images/sallecinema.jpg";
+// import TournagesType from "/components/TournagesType.tsx";
 
 type Tournage = {
   titre?: string;
@@ -20,7 +22,7 @@ function Analyse() {
     async function load() {
       try {
         const response = await fetch(
-          "https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/lieux-de-tournage-a-paris/records?limit=50"
+          "https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/lieux-de-tournage-a-paris/records?limit=100"
         );
         const data = await response.json();
         console.log("API data :", data);
