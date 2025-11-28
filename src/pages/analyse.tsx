@@ -1,9 +1,9 @@
 // src/pages/Analyse.tsx
 import { useEffect, useState } from "react";
-import BarChartByYear from "../components/BarChartByYear";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
 import sallecinema from "/src/images/sallecinema.jpg";
-// import TournagesType from "/components/TournagesType.tsx";
+// import BarChartByType from "/src/components/BarChartByType.tsx";
+// src/components/LineChartByYear.tsx
 
 type Tournage = {
   titre?: string;
