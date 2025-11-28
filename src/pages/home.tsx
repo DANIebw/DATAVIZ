@@ -1,7 +1,7 @@
 // src/pages/Home.tsx
 import { useEffect, useState } from "react";
 import cinemaHero from "../images/cinema.png";
-import Footer from "../components/footer";
+import Footer from "../components/Footer";
 
 type Tournage = {
   nom_tournage?: string;
