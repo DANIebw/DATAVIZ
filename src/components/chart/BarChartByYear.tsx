@@ -33,7 +33,7 @@ export default function BarChartByYear({ tournages }: Props) {
     }, []);
   }, [tournages]); // ⚡ Recalcule uniquement quand tournages change
 
-  // 🧱Affichage du graphique avec Recharts
+  // Affichage du graphique avec Recharts
   return (
     <BarChart data={dataParAnnee} width={400} height={260}>
       {/* Fond quadrillé du graphique */}

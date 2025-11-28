@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import BarChartByYear from "../components/chart/BarChartByYear";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
 import sallecinema from "/src/images/sallecinema.jpg";
+// import TournagesType from "/components/TournagesType.tsx";
 
 type Tournage = {
   titre?: string;
