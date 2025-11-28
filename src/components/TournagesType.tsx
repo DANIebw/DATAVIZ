@@ -1,15 +1,18 @@
 import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
 
+// Type représentant un tournage brut venant de l'API
+type Tournage = {
+  type_tournage?: string;
+};
+
+// Type pour représenter un résultat regroupé { type, count }
 type TypeCount = {
   type: string;
   count: number;
 };
-type Tournage = {
-  type_tournage: string;
-};
 
 function TournagesParType({ tournages }: { tournages: Tournage[] }) {
-  // 🟣 Regroupement par type
+  // Regroupement par type ,  // Objectif : compter combien de fois chaque type apparaît
   const dataTypes = tournages.reduce((acc: TypeCount[], t) => {
     const type = t.type_tournage || "Inconnu";
     const exist = acc.find((item) => item.type === type);
@@ -20,6 +23,7 @@ function TournagesParType({ tournages }: { tournages: Tournage[] }) {
     return acc;
   }, [] as TypeCount[]);
 
+  // Affichage graphique 1
   return (
     <div className="bg-sky-950/60 rounded-xl p-6 shadow-lg flex flex-col gap-4 text-white">
       <h2 className="text-lg font-semibold">
