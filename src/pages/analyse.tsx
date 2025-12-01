@@ -21,7 +21,7 @@ function Analyse() {
     async function load() {
       try {
         const response = await fetch(
-          "https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/lieux-de-tournage-a-paris/records?limit=100"
+          "https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/lieux-de-tournage-a-paris/records?limit=1000"
         );
         const data = await response.json();
         console.log("API data :", data);
@@ -100,13 +100,7 @@ function Analyse() {
                   Répartition des types de tournages.
                 </p>
                 <div className="w-full flex justify-center">
-                  <BarChart width={400} height={260} data={dataTypes}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="type" stroke="#ffffff" />
-                    <YAxis stroke="#ffffff" />
-                    <Tooltip />
-                    <Bar dataKey="count" fill="#82ca9d" />
-                  </BarChart>
+                  <BarChartByType tournages={tournages} />
                 </div>
               </div>
 
