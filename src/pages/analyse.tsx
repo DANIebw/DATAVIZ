@@ -1,8 +1,17 @@
 import { useEffect, useState } from "react";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
+import {
+  BarChart,
+  Line,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  CartesianGrid,
+} from "recharts";
 import sallecinema from "../images/sallecinema.jpg";
 import BarChartByType from "../components/chart/BarChartByType";
 import LineChartByYear from "../components/chart/LineChartByYear";
+import MapByDistrict from "../components/chart/MapByDistrict";
 
 type Tournage = {
   titre?: string;
@@ -97,9 +106,13 @@ function Analyse() {
                 <h2 className="text-lg font-semibold">
                   Répartition des tournages par arrondissement.
                 </h2>
-                <p className="text-xs opacity-80">À venir.</p>
-                <div className="w-full flex justify-center border border-dashed border-white/30 rounded-lg py-10 text-xs opacity-70">
-                  Graphique à venir
+
+                <p className="text-xs opacity-80">
+                  Nombre total de tournages par arrondissement.
+                </p>
+
+                <div className="w-full flex justify-center">
+                  <MapByDistrict tournages={tournages} />
                 </div>
               </div>
 
