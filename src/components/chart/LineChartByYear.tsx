@@ -43,7 +43,7 @@ export default function LineChartByYear({ tournages }: Props) {
 
   // Affichage du graphique avec Recharts
   return (
-    <LineChart data={[dataParAnnee]} width={400} height={260}>
+    <LineChart data={dataParAnnee} width={400} height={260}>
       {/* Fond quadrillé du graphique */}
       <CartesianGrid strokeDasharray="3 3" />
 

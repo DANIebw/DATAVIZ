@@ -25,20 +25,14 @@ function TournagesParType({ tournages }: { tournages: Tournage[] }) {
 
   // Affichage graphique 1
   return (
-    <div className="bg-sky-950/60 rounded-xl p-6 shadow-lg flex flex-col gap-4 text-white">
-      <h2 className="text-lg font-semibold">
-        Long métrage, Série TV, Téléfilm…
-      </h2>
-      <p className="text-xs opacity-80">Répartition des types de tournages.</p>
-      <div className="w-full flex justify-center">
-        <BarChart width={400} height={260} data={dataTypes}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="type" stroke="#ffffff" />
-          <YAxis stroke="#ffffff" />
-          <Tooltip />
-          <Bar dataKey="count" fill="#82ca9d" />
-        </BarChart>
-      </div>
+    <div className="w-full flex justify-center">
+      <BarChart width={400} height={260} data={dataTypes}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="type" stroke="#ffffff" />
+        <YAxis stroke="#ffffff" />
+        <Tooltip />
+        <Bar dataKey="count" fill="#82ca9d" />
+      </BarChart>
     </div>
   );
 }
