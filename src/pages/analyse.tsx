@@ -37,19 +37,6 @@ function Analyse() {
     load();
   }, []);
 
-  // 🟣 Regroupement par type
-  const dataTypes = tournages.reduce((acc: any[], t) => {
-    const type = t.type_tournage || "Inconnu";
-    const exist = acc.find((item) => item.type === type);
-
-    if (exist) {
-      exist.count += 1;
-    } else {
-      acc.push({ type, count: 1 });
-    }
-    return acc;
-  }, []);
-
   return (
     <main
       className="min-h-screen bg-cover bg-center bg-fixed px-4 py-10"
@@ -60,13 +47,13 @@ function Analyse() {
       <div className="max-w-6xl mx-auto px-6 py-10">
         {/* ⏳ Zone de statut */}
         <div className="mb-6">
-          {loading && (
+          {!loading && !error && tournages.length > 0 && (
             <p className="opacity-70 text-white">Chargement des données… ⏳</p>
           )}
 
           {error && <p className="text-red-400">{error}</p>}
 
-          {!loading && !error && (
+          {!loading && !error && tournages.length > 0 && (
             <p className="opacity-80 text-xs text-sky-100">
               On a récupéré{" "}
               <span className="font-semibold">{tournages.length}</span>{" "}
@@ -76,7 +63,7 @@ function Analyse() {
         </div>
 
         {/* 🎨 Contenu principal uniquement si tout est OK */}
-        {!loading && !error && (
+        {!loading && !error && tournages.length > 0 && (
           <>
             {/* 🔹 Grille 2x2 des boîtes / graphiques */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10 text-with">
@@ -99,14 +86,9 @@ function Analyse() {
                 <p className="text-xs opacity-80">
                   Répartition des types de tournages.
                 </p>
+
                 <div className="w-full flex justify-center">
-                  <BarChart width={400} height={260} data={dataTypes}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="type" stroke="#ffffff" />
-                    <YAxis stroke="#ffffff" />
-                    <Tooltip />
-                    <Bar dataKey="count" fill="#82ca9d" />
-                  </BarChart>
+                  <BarChartByType tournages={tournages} />
                 </div>
               </div>
 
