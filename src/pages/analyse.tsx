@@ -21,7 +21,7 @@ function Analyse() {
     async function load() {
       try {
         const response = await fetch(
-          "https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/lieux-de-tournage-a-paris/records?limit=1000"
+          "https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/lieux-de-tournage-a-paris/records?limit=100"
         );
         const data = await response.json();
         console.log("API data :", data);
