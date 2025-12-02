@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import cinemaHero from "../images/cinema.png";
 import Footer from "../components/Footer";
+import { NavLink } from "react-router-dom";
 
 type Tournage = {
   nom_tournage?: string;
@@ -17,6 +18,7 @@ function Home() {
   const [tournages, setTournages] = useState<Tournage[]>([]);
   const [loading, setLoading] = useState(true);
 
+  // 🔹 Récupération des données depuis l'API
   useEffect(() => {
     async function load() {
       try {
@@ -35,31 +37,48 @@ function Home() {
     load();
   }, []);
 
-  const tournagesParAnnee = tournages.reduce((acc, t) => {
-    const annee = t.annee_tournage;
+  // Regroupement par année pour les petites cartes
+  const tournagesParAnnee = tournages.reduce<Record<string, number>>(
+    (acc, t) => {
+      const annee = t.annee_tournage;
+      if (!annee) return acc;
+      acc[annee] = (acc[annee] || 0) + 1;
+      return acc;
+    },
+    {}
+  );
 
-    if (!annee) return acc; // on ignore si pas d'année
+  // On trie les années pour un affichage propre (du plus ancien au plus récent)
+  const entriesTournagesParAnnee = Object.entries(tournagesParAnnee).sort(
+    (a, b) => Number(a[0]) - Number(b[0])
+  );
 
-    if (!acc[annee]) acc[annee] = 0;
-    acc[annee]++;
+  // 🔹 Stats globales pour les 3 grandes cartes
+  const typesUniques = new Set(
+    tournages.map((t) => t.type_tournage || "Inconnu")
+  ).size;
 
-    return acc;
-  }, {} as Record<string, number>);
+  const arrondissementsUniques = new Set(
+    tournages.map((t) => t.ardt_lieu || "Inconnu")
+  ).size;
+
+  const realisateursUniques = new Set(
+    tournages.map((t) => t.nom_realisateur || "Inconnu")
+  ).size;
 
   return (
     <>
       {/* HERO */}
-
       <section
         className="relative h-[450px] bg-cover bg-center bg-no-repeat flex items-center justify-center text-center px-10"
         style={{ backgroundImage: `url(${cinemaHero})` }}
       >
-        {/* Overlay sombre sur toute l'image */}
-        <div className="absolute inset-0 bg-black/60"></div>
+        {/* Overlay sombre */}
+        <div className="absolute inset-0 bg-black/60" />
 
         {/* Contenu */}
         <div className="relative z-10 max-w-3xl text-white">
-          <h1 className="text-5xl md:text-5xl font-bold mb-9">
+          <h1 className="text-4xl md:text-5xl font-bold mb-9">
             Dataviz Cinéma – France
           </h1>
 
@@ -69,64 +88,76 @@ function Home() {
             arrondissements, réalisateurs et plus encore.
           </p>
 
-          <button className="bg-sky-200 text-sky-950 px-6 py-3 rounded-xl font-semibold hover:bg-sky-200/50 transition">
-            Explorer les analyses
-          </button>
+          {/* Bouton vers /analyse */}
+          <NavLink
+            to="/analyse"
+            className="inline-block bg-sky-200 text-sky-950 px-4 py-2 rounded-md font-medium text-sm hover:bg-sky-200/70 transition"
+          >
+            Aller à l'analyse
+          </NavLink>
         </div>
       </section>
 
       {/* CARTES */}
       <section className="py-12 bg-sky-200">
-        <div className="max-w-6xl mx-auto px-6 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {/* Card 1 */}
-          <div className="group bg-sky-950/50 text-white p-6 rounded-xl shadow hover:bg-red-900/50  hover:scale-105 transition ">
-            <p className="">Nombre de tournages par année.</p>
+        <div className="max-w-6xl mx-auto px-6 flex flex-col gap-10">
+          {/* Titre */}
+          <h2 className="text-sky-900 text-xl md:text-2xl font-semibold text-center">
+            Nombre de tournages par année
+          </h2>
 
-            {!loading && (
-              <p className="text-3xl font-bold mt-4 text-center group-hover:text-with">
-                {Object.values(tournagesParAnnee).reduce(
-                  (sum, x) => sum + x,
-                  0
-                )}
-              </p>
-            )}
+          {/* Ligne des petites cartes (années) */}
+          <div className="w-full flex flex-wrap justify-center gap-4 md:flex-nowrap md:justify-between lg:justify-center">
+            {!loading &&
+              entriesTournagesParAnnee.map(([annee, count]) => (
+                <div
+                  key={annee}
+                  className="min-w-[80px] sm:min-w-[96px] md:min-w-[110px] lg:min-w-[130px]
+                             h-24 flex flex-col justify-center items-center
+                             bg-sky-800/80 text-white rounded-3xl shadow
+                             hover:bg-red-900/60 hover:scale-105 transition text-center"
+                >
+                  <p className="text-xs font-semibold tracking-wide">{annee}</p>
+                  <p className="text-2xl font-bold mt-1">{count}</p>
+                </div>
+              ))}
           </div>
 
-          {/* Card 2 */}
-          <div className="group bg-sky-950/50 text-white p-6 rounded-xl shadow hover:bg-red-900/50  hover:scale-105 transition">
-            <p className="">Long métrage, Série TV, Téléfilm…</p>
-            {!loading && (
-              <p className="text-3xl font-bold mt-4 text-center group-hover:text-with">
-                {Object.values(tournagesParAnnee).reduce(
-                  (sum, x) => sum + x,
-                  0
-                )}
-              </p>
-            )}
-          </div>
+          {/* 🔹 Ligne des 3 grandes cartes */}
+          <div className="max-w-5xl mx-auto grid gap-6 md:grid-cols-3">
+            <div className="group bg-sky-800/80 text-white p-8 rounded-3xl shadow hover:bg-red-900/60 hover:scale-105 transition text-center">
+              <p className="text-lg">Types de tournages</p>
+              {!loading && (
+                <p className="text-4xl font-extrabold mt-4">{typesUniques}</p>
+              )}
+              {loading && (
+                <p className="mt-4 text-sm opacity-70">Chargement...</p>
+              )}
+            </div>
 
-          {/* Card 3 */}
-          <div className="group bg-sky-950/50 text-white p-6 rounded-xl shadow hover:bg-red-900/50  hover:scale-105 transition">
-            <p className="">
-              Répartition des tournages par arrondissement parisien.
-            </p>
-            {!loading && (
-              <p className="text-3xl font-bold mt-4 text-center group-hover:text-with">
-                {tournages.length}
-              </p>
-            )}
-          </div>
+            <div className="group bg-sky-800/80 text-white p-8 rounded-3xl shadow hover:bg-red-900/60 hover:scale-105 transition text-center">
+              <p className="text-lg">Arrondissements concernés</p>
+              {!loading && (
+                <p className="text-4xl font-extrabold mt-4">
+                  {arrondissementsUniques}
+                </p>
+              )}
+              {loading && (
+                <p className="mt-4 text-sm opacity-70">Chargement...</p>
+              )}
+            </div>
 
-          {/* Card 4 */}
-          <div className="group bg-sky-950/50 text-white p-6 rounded-xl shadow hover:bg-red-900/50  hover:scale-105 transition">
-            <p className="">
-              Classement des réalisateurs les plus présents à Paris."
-            </p>
-            {!loading && (
-              <p className="text-3xl font-bold mt-4 text-center group-hover:text-with">
-                {tournages.length}
-              </p>
-            )}
+            <div className="group bg-sky-800/80 text-white p-8 rounded-3xl shadow hover:bg-red-900/60 hover:scale-105 transition text-center">
+              <p className="text-lg">Réalisateurs les plus présents</p>
+              {!loading && (
+                <p className="text-4xl font-extrabold mt-4">
+                  {realisateursUniques}
+                </p>
+              )}
+              {loading && (
+                <p className="mt-4 text-sm opacity-70">Chargement...</p>
+              )}
+            </div>
           </div>
         </div>
       </section>

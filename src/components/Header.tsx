@@ -1,3 +1,4 @@
+// Import de NavLink pour créer des liens vers les routes React Router
 import { NavLink } from "react-router-dom";
 
 function Header() {
@@ -7,15 +8,20 @@ function Header() {
         <div className="text-sm text-with font-semibold tracking-wide">
           Dataviz Cinéma – France
         </div>
-
         <nav className="flex gap-2 text-sm">
+          {/* lien de navigation vers la page d'accueil */}
+
           <NavLink
+            // chemin de la route a afficher quand on clique
             to="/"
+            // "isActive" est fourni automatiquement par React Router Ça récupère une info automatique donnée par React Router
             className={({ isActive }) =>
               "px-4 py-2 rounded-xl transition " +
               (isActive
-                ? "bg-sky-200 text-sky-950 font-semibold"
-                : "text-sky-200 hover:bg-red-900/50")
+                ? // c'est pour montrer la page ou je me trouve et change la couleurs des boutons
+                  "bg-sky-200 text-sky-950 font-semibold"
+                : // hover au survol la couleurs change
+                  "text-sky-200 hover:bg-red-900/50")
             }
           >
             Accueil
