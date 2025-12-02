@@ -12,6 +12,7 @@ import sallecinema from "../images/sallecinema.jpg";
 import BarChartByType from "../components/chart/BarChartByType";
 import LineChartByYear from "../components/chart/LineChartByYear";
 import MapByDistrict from "../components/chart/MapByDistrict";
+import TopDirectorsChart from "../components/chart/TopDirectorsChart";
 
 type Tournage = {
   titre?: string;
@@ -119,11 +120,16 @@ function Analyse() {
               {/* Box 4 */}
               <div className="bg-sky-950/60 rounded-xl p-6 shadow-lg flex flex-col gap-4 text-white">
                 <h2 className="text-lg font-semibold">
-                  Classement des réalisateurs les plus présents à Paris.
+                  Classement Top10 des réalisateurs les plus présents à Paris.
                 </h2>
-                <p className="text-xs opacity-80">À venir.</p>
+                <p className="text-xs opacity-80">
+                  {" "}
+                  Top10 des réalisateurs les plus présents à Paris.
+                </p>
                 <div className="w-full flex justify-center border border-dashed border-white/30 rounded-lg py-10 text-xs opacity-70">
-                  Graphique à venir
+                  <div className="w-full flex justify-center">
+                    <TopDirectorsChart tournages={tournages} />
+                  </div>
                 </div>
               </div>
             </div>
