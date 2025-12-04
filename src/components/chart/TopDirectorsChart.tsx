@@ -52,7 +52,7 @@ function TopDirectorsChart({ tournages }: { tournages: any[] }) {
   const top10 = data.slice(0, 10);
 
   return (
-    <div style={{ width: "100%", height: 400 }}>
+    <div style={{ width: "100%", height: 400 }} className="animate-fade-in-up">
       <ResponsiveContainer>
         <BarChart
           data={top10}
@@ -62,7 +62,13 @@ function TopDirectorsChart({ tournages }: { tournages: any[] }) {
           <XAxis dataKey="director" angle={-35} textAnchor="end" height={100} />
           <YAxis />
           <Tooltip />
-          <Bar dataKey="count" fill="#4ade80" /> {/* vert clair */}
+          <Bar
+            dataKey="count"
+            fill="#4ade80"
+            animationDuration={800}
+            animationBegin={200}
+          />{" "}
+          {/* vert clair */}
         </BarChart>
       </ResponsiveContainer>
     </div>

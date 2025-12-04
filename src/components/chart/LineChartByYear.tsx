@@ -13,7 +13,7 @@ import {
 // Chaque tournage peut ou non contenir l'année
 type Props = {
   tournages: {
-    annee_tournage?: string;
+    annee_tournage: string;
   }[];
 };
 type YearCount = {
