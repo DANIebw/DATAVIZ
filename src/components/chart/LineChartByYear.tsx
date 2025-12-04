@@ -34,7 +34,17 @@ export default function LineChartByYear({ tournages }: Props) {
       else acc.push({ annee, count: 1 });
 
       return acc;
-    }, [] as YearCount[]);
+    }, []);
+    // 🧠 TRIER les années (sinon le graphique est dans le désordre)
+    dataYear.sort((a, b) => {
+      const yearA = Number(a.annee);
+      const yearB = Number(b.annee);
+
+      if (isNaN(yearA)) return 1;
+      if (isNaN(yearB)) return -1;
+
+      return yearA - yearB;
+    });
 
     return dataYear;
   }, [tournages]);
