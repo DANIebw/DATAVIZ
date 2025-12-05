@@ -51,7 +51,7 @@ export default function LineChartByYear({ tournages }: Props) {
 
   // ⚡ Recalcule uniquement quand tournages change
 
-  // Affichage du graphique avec Recharts
+  // Affichage du graphique 1
   return (
     <LineChart data={dataParAnnee} width={400} height={260}>
       {/* Fond quadrillé du graphique */}

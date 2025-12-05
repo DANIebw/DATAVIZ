@@ -37,6 +37,7 @@ function MapByDistrict({ tournages }: { tournages: any[] }) {
   // 5️⃣ - On trie le tableau du plus grand au plus petit nombre de tournages
   data.sort((a, b) => b.count - a.count);
 
+  // Graphique 3
   return (
     <div style={{ width: "100%", height: 400 }}>
       <ResponsiveContainer>

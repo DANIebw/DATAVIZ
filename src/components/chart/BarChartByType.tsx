@@ -23,7 +23,7 @@ function TournagesParType({ tournages }: { tournages: Tournage[] }) {
     return acc;
   }, [] as TypeCount[]);
 
-  // Affichage graphique 1
+  // Affichage graphique 2
   return (
     <div className="w-full flex justify-center">
       <BarChart width={400} height={260} data={dataTypes}>

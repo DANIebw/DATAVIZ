@@ -51,6 +51,7 @@ function TopDirectorsChart({ tournages }: { tournages: any[] }) {
   // 8️⃣ On garde seulement le top 10
   const top10 = data.slice(0, 10);
 
+  // graphique 4
   return (
     <div style={{ width: "100%", height: 400 }} className="animate-fade-in-up">
       <ResponsiveContainer>
