@@ -1,13 +1,4 @@
 import { useEffect, useState } from "react";
-// import {
-//   BarChart,
-//   Line,
-//   Bar,
-//   XAxis,
-//   YAxis,
-//   Tooltip,
-//   CartesianGrid,
-// } from "recharts";
 import sallecinema from "../images/sallecinema.jpg";
 import BarChartByType from "../components/chart/BarChartByType";
 import LineChartByYear from "../components/chart/LineChartByYear";
