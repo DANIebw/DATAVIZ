@@ -4,6 +4,7 @@ import BarChartByType from "../components/chart/BarChartByType";
 import LineChartByYear from "../components/chart/LineChartByYear";
 import MapByDistrict from "../components/chart/MapByDistrict";
 import TopDirectorsChart from "../components/chart/TopDirectorsChart";
+import Graphique from "../components/chart/graphique";
 
 type Tournage = {
   titre: string;
@@ -68,7 +69,7 @@ function Analyse() {
           <>
             {/* 🔹 Grille 2x2 des boîtes / graphiques */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10 text-with">
-              {/* Box 1 */}
+              {/* BOX 1 */}
               <div className="bg-sky-950/60 rounded-xl p-6 shadow-lg flex flex-col gap-4 text-white">
                 <h2 className="text-lg font-semibold">Tournages par année</h2>
                 <p className="text-xs opacity-80">
@@ -79,7 +80,7 @@ function Analyse() {
                 </div>
               </div>
 
-              {/* Box 2 */}
+              {/* BOX 2 */}
               <div className="bg-sky-950/60 rounded-xl p-6 shadow-lg flex flex-col gap-4 text-white">
                 <h2 className="text-lg font-semibold">
                   Long métrage, Série TV, Téléfilm…
@@ -87,38 +88,48 @@ function Analyse() {
                 <p className="text-xs opacity-80">
                   Répartition des types de tournages.
                 </p>
-
                 <div className="w-full flex justify-center">
                   <BarChartByType tournages={tournages} />
                 </div>
               </div>
 
-              {/* Box 3 */}
+              {/* BOX 3 */}
               <div className="bg-sky-950/60 rounded-xl p-6 shadow-lg flex flex-col gap-4 text-white">
                 <h2 className="text-lg font-semibold">
                   Répartition des tournages par arrondissement.
                 </h2>
-
                 <p className="text-xs opacity-80">
                   Nombre total de tournages par arrondissement.
                 </p>
-
                 <div className="w-full flex justify-center">
                   <MapByDistrict tournages={tournages} />
                 </div>
               </div>
 
-              {/* Box 4 */}
+              {/* BOX 4 */}
               <div className="bg-sky-950/60 rounded-xl p-6 shadow-lg flex flex-col gap-4 text-white">
                 <h2 className="text-lg font-semibold">
                   Classement des réalisateurs les plus présents à Paris.
                 </h2>
                 <p className="text-xs opacity-80">
-                  {" "}
-                  Top10 des réalisateurs les plus présents à Paris.
+                  Top10 des réalisateurs les plus présents.
                 </p>
-                <div className="w-full flex justify-center border border-dashed border-white/30 rounded-lg py-10 text-xs opacity-70">
+                <div className="w-full flex justify-center">
                   <TopDirectorsChart tournages={tournages} />
+                </div>
+              </div>
+
+              {/* BOX 5 */}
+              <div className="bg-sky-950/60 rounded-xl p-6 shadow-lg flex flex-col gap-4 text-white">
+                <h2 className="text-lg font-semibold">
+                  Répartition des tournages par thèmes et années.
+                </h2>
+                <p className="text-xs opacity-80">
+                  Variation du nombre de tournages par type selon les années.
+                </p>
+
+                <div className="w-full flex justify-center">
+                  <Graphique tournages={tournages} />
                 </div>
               </div>
             </div>
