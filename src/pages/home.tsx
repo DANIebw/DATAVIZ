@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import cinemaHero from "../images/cinema.png";
 import Footer from "../components/Footer";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 type Tournage = {
   nom_tournage?: string;
@@ -89,12 +89,12 @@ function Home() {
           </p>
 
           {/* Bouton vers /analyse */}
-          <NavLink
+          <Link
             to="/analyse"
             className="inline-block bg-sky-200 text-sky-950 px-4 py-2 rounded-md font-medium text-sm hover:bg-sky-200/70 transition"
           >
             Aller à l'analyse
-          </NavLink>
+          </Link>
         </div>
       </section>
 
